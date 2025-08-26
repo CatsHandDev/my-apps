@@ -21,8 +21,8 @@ export const projectsData: Project[] = [
     title: 'StopWatch for mobile',
     description: 'Reactで作成したストップウォッチアプリ。レコード機能付き。',
     tags: ['React', 'Vite', 'SCSS'],
-    demoUrl: 'https://github.com/CatsHandDev/AdvancedStopWatch',
-    githubUrl: '#',
+    demoUrl: 'https://advanced-stop-watch.vercel.app/',
+    githubUrl: 'https://github.com/CatsHandDev/AdvancedStopWatch',
   },
   {
     id: 2,
