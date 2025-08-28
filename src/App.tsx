@@ -1,4 +1,5 @@
 import React, { useState, useMemo } from 'react';
+import './ModernDesign.scss';
 import Header from './components/Header';
 import Stats from './components/Stats';
 import FilterButtons from './components/FilterButtons';

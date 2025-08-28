@@ -1,0 +1,246 @@
+/* 1. Imports & Variables */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap');
+
+:root {
+  --background-start-rgb: 20, 20, 40;
+  --background-end-rgb: 40, 20, 60;
+  --card-bg-color: rgba(255, 255, 255, 0.1);
+  --card-border-color: rgba(255, 255, 255, 0.2);
+  --text-color: #f0f0f0;
+  --text-color-secondary: rgba(240, 240, 240, 0.85); /* 修正: 可読性の高い二次テキストカラーを追加 */
+  --primary-color: #8a2be2;
+  --primary-color-dark: #7b1fa2;
+  --border-radius: 12px;
+  --card-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+}
+
+/* 2. Mixins (再利用するスタイル) */
+@mixin glass-card($blur: 10px) {
+  background: var(--card-bg-color);
+  border: 1px solid var(--card-border-color);
+  border-radius: var(--border-radius);
+  box-shadow: var(--card-shadow);
+  backdrop-filter: blur($blur);
+  -webkit-backdrop-filter: blur($blur);
+}
+
+/* 3. Global Styles */
+body {
+  font-family: 'Noto Sans JP', sans-serif;
+  background: linear-gradient(135deg, rgb(var(--background-start-rgb)), rgb(var(--background-end-rgb)));
+  color: var(--text-color);
+  margin: 0;
+  padding: 2rem;
+  min-height: 100vh;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+/* 4. Component Styles (Nesting) */
+
+/* --- Header --- */
+.header {
+  text-align: center;
+  margin-bottom: 4rem;
+
+  h1 {
+    font-size: 3rem;
+    font-weight: 700;
+    background: -webkit-linear-gradient(45deg, #a97cff, #f098b3);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 0.5rem;
+  }
+
+  p {
+    font-size: 1.1rem;
+    color: var(--text-color-secondary); /* 修正 */
+  }
+
+  .tech-badge {
+    @include glass-card(5px);
+    border-radius: 20px;
+    padding: 0.4rem 0.8rem;
+    margin: 0.2rem;
+    font-size: 0.9rem;
+    display: inline-block;
+  }
+}
+
+/* --- Stats --- */
+.stats {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-bottom: 4rem;
+  flex-wrap: wrap;
+
+  .stat-item {
+    @include glass-card(10px);
+    padding: 1.5rem 2rem;
+    text-align: center;
+    width: 150px;
+
+    .stat-number {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--text-color);
+    }
+
+    .stat-label {
+      font-size: 1rem;
+      color: rgba(255, 255, 255, 0.7);
+    }
+  }
+}
+
+/* --- Filter Buttons --- */
+.filter-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 3rem;
+  flex-wrap: wrap;
+
+  .filter-btn {
+    background: transparent;
+    color: var(--text-color);
+    border: 1px solid var(--card-border-color);
+    padding: 0.6rem 1.2rem;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+
+    &:hover {
+      background: var(--card-bg-color);
+      border-color: #fff;
+      color: #fff;
+    }
+
+    &.active {
+      background: var(--primary-color);
+      color: white;
+      border-color: var(--primary-color);
+      box-shadow: 0 0 15px rgba(138, 43, 226, 0.6);
+    }
+  }
+}
+
+/* --- Projects Grid & Card --- */
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 2rem;
+}
+
+.project-card {
+  @include glass-card(10px);
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  flex-direction: column;
+
+  &:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5);
+  }
+
+  .project-image {
+    height: 200px;
+    background-size: cover;
+    background-position: center;
+  }
+
+  .project-content {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+
+    .project-title {
+      margin-top: 0;
+      font-size: 1.5rem;
+    }
+
+    .project-description {
+      color: var(--text-color-primary);
+      margin-bottom: 1rem;
+    }
+
+    .project-tags {
+      margin-bottom: 1rem;
+
+      .tag {
+        background: rgba(0, 0, 0, 0.2);
+        color: #fff;
+        padding: 0.3rem 0.7rem;
+        border-radius: 15px;
+        font-size: 0.8rem;
+        margin-right: 0.5rem;
+        margin-bottom: 0.5rem;
+        display: inline-block;
+      }
+    }
+
+    .project-links {
+      margin-top: auto; /* 修正: これでリンク部分がカード下部に固定される */
+      display: flex;
+      gap: 1rem;
+    }
+  }
+}
+
+/* --- Buttons --- */
+.btn {
+  text-decoration: none;
+  padding: 0.7rem 1.5rem;
+  border-radius: 8px;
+  text-align: center;
+  transition: all 0.3s ease;
+  font-weight: bold;
+  border: none;
+
+  &.btn-primary {
+    background: var(--primary-color);
+    color: white;
+
+    &:hover {
+      background: var(--primary-color-dark);
+      box-shadow: 0 0 15px rgba(138, 43, 226, 0.6);
+    }
+  }
+
+  &.btn-secondary {
+    background: transparent; /* 修正 */
+    color: var(--primary-color);
+    border: 1px solid var(--primary-color);
+
+    &:hover {
+      background: var(--primary-color);
+      box-shadow: 0 0 15px rgba(138, 43, 226, 0.6);
+      color: white;
+    }
+  }
+}
+
+/* --- Animation --- */
+.fade-in {
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
